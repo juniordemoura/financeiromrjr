@@ -235,8 +235,3 @@
     window.DB = DEMO ? demo : real;
     window.DB.ZEROS = ZEROS;
 })();
-
-
-    window.DB = DEMO ? demo : real;
-    window.DB.ZEROS = ZEROS;
-})();

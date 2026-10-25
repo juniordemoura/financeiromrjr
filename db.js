@@ -8,7 +8,7 @@
 
     const CFG = window.APP_CONFIG || {};
     const DEMO = !CFG.SUPABASE_URL || !CFG.SUPABASE_ANON_KEY ||
-        String(CFG.SUPABASE_URL).includes('ju.moura.mrc') || String(CFG.SUPABASE_ANON_KEY).includes('@Junks467566');
+        String(CFG.SUPABASE_URL).includes('ju.moura.mrc@gmail.com') || String(CFG.SUPABASE_ANON_KEY).includes('@Junks467566');
 
     const ZEROS = { orcamento_mensal: 0, contas_fixas: 0, meta_economia: 0 };
     function normalizarConfig(c) {

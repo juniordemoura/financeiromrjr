@@ -7,9 +7,9 @@
  *  - Ritmo esperado   = orçamento variável × (dia atual ÷ dias do mês).
  *
  *  Status (só para o mês atual/passado):
- *   🔴 vermelho: gastou mais que o orçamento total, ou o ritmo está >10% acima do esperado
- *   🟢 bom:      ritmo entre 90% e 110% do esperado
- *   🏆 ótimo:    ritmo até 90% do esperado
+ *   vermelho: gastou mais que o orçamento total, ou o ritmo está >10% acima do esperado
+ *   bom:           ritmo entre 90% e 110% do esperado
+ *   ótimo:       ritmo até 90% do esperado
  */
 (function (raiz) {
     'use strict';
@@ -18,25 +18,25 @@
     const MESES_CURTOS = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
     const CATEGORIAS_GASTO = [
-        { nome: 'Moradia', icone: '🏠', grupo: 'essencial' },
-        { nome: 'Mercado', icone: '🛒', grupo: 'essencial' },
-        { nome: 'Transporte', icone: '🚌', grupo: 'essencial' },
-        { nome: 'Contas', icone: '💡', grupo: 'essencial' },
-        { nome: 'Saúde', icone: '💊', grupo: 'essencial' },
-        { nome: 'Educação', icone: '🎓', grupo: 'essencial' },
-        { nome: 'Dívidas', icone: '💳', grupo: 'essencial' },
-        { nome: 'Comida fora', icone: '🍔', grupo: 'desejo' },
-        { nome: 'Lazer', icone: '🎮', grupo: 'desejo' },
-        { nome: 'Compras', icone: '🛍️', grupo: 'desejo' },
-        { nome: 'Assinaturas', icone: '📺', grupo: 'desejo' },
-        { nome: 'Outros', icone: '📦', grupo: 'desejo' }
+        { nome: 'Moradia', icone: 'fa-house', grupo: 'essencial' },
+        { nome: 'Mercado', icone: 'fa-cart-shopping', grupo: 'essencial' },
+        { nome: 'Transporte', icone: 'fa-bus', grupo: 'essencial' },
+        { nome: 'Contas', icone: 'fa-lightbulb', grupo: 'essencial' },
+        { nome: 'Saúde', icone: 'fa-heart-pulse', grupo: 'essencial' },
+        { nome: 'Educação', icone: 'fa-graduation-cap', grupo: 'essencial' },
+        { nome: 'Dívidas', icone: 'fa-credit-card', grupo: 'essencial' },
+        { nome: 'Comida fora', icone: 'fa-utensils', grupo: 'desejo' },
+        { nome: 'Lazer', icone: 'fa-gamepad', grupo: 'desejo' },
+        { nome: 'Compras', icone: 'fa-bag-shopping', grupo: 'desejo' },
+        { nome: 'Assinaturas', icone: 'fa-tv', grupo: 'desejo' },
+        { nome: 'Outros', icone: 'fa-box', grupo: 'desejo' }
     ];
     const CATEGORIAS_RECEITA = ['Salário', 'Freelance', 'Outros'];
 
-    const ICONES = { 'Salário': '💰', 'Freelance': '💻' };
+    const ICONES = { 'Salário': 'fa-money-bill-wave', 'Freelance': 'fa-laptop-code' };
     CATEGORIAS_GASTO.forEach((c) => { ICONES[c.nome] = c.icone; });
 
-    function iconeCategoria(nome) { return ICONES[nome] || '📦'; }
+    function iconeCategoria(nome) { return ICONES[nome] || 'fa-box'; }
     function grupoCategoria(nome) {
         const c = CATEGORIAS_GASTO.find((x) => x.nome === nome);
         return c ? c.grupo : 'desejo';
@@ -163,35 +163,35 @@
 
     function mensagemStatus(r) {
         if (!r.configurado) {
-            return { icone: '🧭', titulo: 'Vamos começar!', texto: 'Defina seu orçamento do mês em "Meu planejamento" para eu poder avisar quando você estiver no vermelho, bem ou ótimo.' };
+            return { icone: 'fa-sliders', titulo: 'Vamos começar!', texto: 'Defina seu orçamento do mês em "Meu planejamento" para eu poder avisar quando você estiver no vermelho, bem ou ótimo.' };
         }
         if (r.futuro && r.nivel !== 'vermelho') {
-            return { icone: '🗓️', titulo: 'Mês futuro', texto: `Este mês ainda não começou. Seu orçamento planejado é ${moeda(r.orcamento)}.` };
+            return { icone: 'fa-calendar', titulo: 'Mês futuro', texto: `Este mês ainda não começou. Seu orçamento planejado é ${moeda(r.orcamento)}.` };
         }
         if (r.nivel === 'vermelho') {
             if (r.gastos > r.orcamento) {
                 const dif = moeda(r.gastos - r.orcamento);
                 return r.passado
-                    ? { icone: '🔴', titulo: 'Mês fechou no vermelho', texto: `Este mês passou do orçamento em ${dif}. Veja nas categorias o que mais pesou e ajuste o plano do próximo.` }
-                    : { icone: '🔴', titulo: 'Você está no vermelho!', texto: `Você passou do orçamento em ${dif}. Pause o que não é essencial pelo resto do mês e revise as categorias que mais pesaram.` };
+                    ? { icone: 'fa-triangle-exclamation', titulo: 'Mês fechou no vermelho', texto: `Este mês passou do orçamento em ${dif}. Veja nas categorias o que mais pesou e ajuste o plano do próximo.` }
+                    : { icone: 'fa-triangle-exclamation', titulo: 'Você está no vermelho!', texto: `Você passou do orçamento em ${dif}. Pause o que não é essencial pelo resto do mês e revise as categorias que mais pesaram.` };
             }
             if (r.orcVar <= 0) {
-                return { icone: '🔴', titulo: 'Orçamento todo comprometido', texto: 'Suas contas fixas já ocupam todo o orçamento: qualquer gasto variável deixa o mês no vermelho. Reveja o planejamento.' };
+                return { icone: 'fa-triangle-exclamation', titulo: 'Orçamento todo comprometido', texto: 'Suas contas fixas já ocupam todo o orçamento: qualquer gasto variável deixa o mês no vermelho. Reveja o planejamento.' };
             }
             if (r.passado) {
-                return { icone: '🔴', titulo: 'Ritmo ficou acima do planejado', texto: `Os gastos variáveis fecharam em ${pct(r.gastosVar / r.orcVar)} do que estava planejado.` };
+                return { icone: 'fa-triangle-exclamation', titulo: 'Ritmo ficou acima do planejado', texto: `Os gastos variáveis fecharam em ${pct(r.gastosVar / r.orcVar)} do que estava planejado.` };
             }
-            return { icone: '🔴', titulo: 'Ritmo acima do planejado', texto: `Você já usou ${pct(r.gastosVar / r.orcVar)} do orçamento variável com ${pct(r.progresso)} do mês. Para voltar ao trilho, gaste no máximo ${moeda(Math.max(r.podeGastarPorDia, 0))} por dia.` };
+            return { icone: 'fa-triangle-exclamation', titulo: 'Ritmo acima do planejado', texto: `Você já usou ${pct(r.gastosVar / r.orcVar)} do orçamento variável com ${pct(r.progresso)} do mês. Para voltar ao trilho, gaste no máximo ${moeda(Math.max(r.podeGastarPorDia, 0))} por dia.` };
         }
         if (r.nivel === 'bom') {
             return r.passado
-                ? { icone: '🟢', titulo: 'Mês dentro do planejado', texto: `Você fechou o mês dentro do orçamento e ainda sobraram ${moeda(Math.max(r.orcamento - r.gastos, 0))}.` }
-                : { icone: '🟢', titulo: 'Tudo dentro do planejado', texto: `Você está no ritmo do orçamento. Pode gastar cerca de ${moeda(Math.max(r.podeGastarPorDia, 0))} por dia até o fim do mês e manter o equilíbrio.` };
+                ? { icone: 'fa-circle-check', titulo: 'Mês dentro do planejado', texto: `Você fechou o mês dentro do orçamento e ainda sobraram ${moeda(Math.max(r.orcamento - r.gastos, 0))}.` }
+                : { icone: 'fa-circle-check', titulo: 'Tudo dentro do planejado', texto: `Você está no ritmo do orçamento. Pode gastar cerca de ${moeda(Math.max(r.podeGastarPorDia, 0))} por dia até o fim do mês e manter o equilíbrio.` };
         }
         // ótimo
         return r.passado
-            ? { icone: '🏆', titulo: 'Mês excelente!', texto: `Você gastou bem menos que o planejado: sobraram ${moeda(Math.max(r.orcamento - r.gastos, 0))} do orçamento.` }
-            : { icone: '🏆', titulo: 'Ótimo! Você está voando', texto: `Seus gastos variáveis estão ${moeda(Math.max(r.esperadoVar - r.gastosVar, 0))} abaixo do esperado para hoje. Se continuar assim, o mês fecha com cerca de ${moeda(Math.max(r.orcamento - r.projecaoGastos, 0))} de folga.` };
+            ? { icone: 'fa-trophy', titulo: 'Mês excelente!', texto: `Você gastou bem menos que o planejado: sobraram ${moeda(Math.max(r.orcamento - r.gastos, 0))} do orçamento.` }
+            : { icone: 'fa-trophy', titulo: 'Ótimo! Você está voando', texto: `Seus gastos variáveis estão ${moeda(Math.max(r.esperadoVar - r.gastosVar, 0))} abaixo do esperado para hoje. Se continuar assim, o mês fecha com cerca de ${moeda(Math.max(r.orcamento - r.projecaoGastos, 0))} de folga.` };
     }
 
     // ---------- estímulo ----------
@@ -239,11 +239,11 @@
     }
 
     const NIVEIS = [
-        { min: 0, nome: 'Aprendiz', icone: '🌱' },
-        { min: 3, nome: 'Atento', icone: '👀' },
-        { min: 7, nome: 'Disciplinado', icone: '🔥' },
-        { min: 14, nome: 'Mestre do Orçamento', icone: '🏆' },
-        { min: 30, nome: 'Lenda das Finanças', icone: '👑' }
+        { min: 0, nome: 'Aprendiz', icone: 'fa-seedling' },
+        { min: 3, nome: 'Atento', icone: 'fa-eye' },
+        { min: 7, nome: 'Disciplinado', icone: 'fa-fire' },
+        { min: 14, nome: 'Mestre do Orçamento', icone: 'fa-trophy' },
+        { min: 30, nome: 'Lenda das Finanças', icone: 'fa-crown' }
     ];
 
     function nivelPorSequencia(n) {
@@ -353,18 +353,18 @@
         const out = [];
 
         if (!ts.length) {
-            out.push({ icone: '✍️', titulo: 'Comece anotando tudo', texto: 'Lance cada gasto e cada receita por 30 dias. Sem dados não existe controle; com eles, as previsões melhoram a cada semana.' });
+            out.push({ icone: 'fa-pen-to-square', titulo: 'Comece anotando tudo', texto: 'Lance cada gasto e cada receita por 30 dias. Sem dados não existe controle; com eles, as previsões melhoram a cada semana.' });
             return out;
         }
         if (!r.configurado) {
-            out.push({ icone: '🎯', titulo: 'Defina seu orçamento', texto: 'Preencha "Meu planejamento". Com um limite claro, os alertas vermelho / bom / ótimo passam a funcionar.' });
+            out.push({ icone: 'fa-bullseye', titulo: 'Defina seu orçamento', texto: 'Preencha "Meu planejamento". Com um limite claro, os alertas vermelho / bom / ótimo passam a funcionar.' });
         }
 
         if (r.metaEconomia > 0 && h.temBase) {
             if (h.saldoMensal >= r.metaEconomia) {
-                out.push({ icone: '✅', titulo: 'Meta de economia no caminho', texto: `Mantendo a média, você guarda cerca de ${moeda(h.saldoMensal)} por mês, acima da meta de ${moeda(r.metaEconomia)}.` });
+                out.push({ icone: 'fa-circle-check', titulo: 'Meta de economia no caminho', texto: `Mantendo a média, você guarda cerca de ${moeda(h.saldoMensal)} por mês, acima da meta de ${moeda(r.metaEconomia)}.` });
             } else {
-                out.push({ icone: '⚠️', titulo: 'Falta para a meta de economia', texto: `Na média atual sobram ${moeda(h.saldoMensal)} por mês e a meta é ${moeda(r.metaEconomia)}. Faltam ${moeda(r.metaEconomia - h.saldoMensal)} por mês: o caminho mais fácil é cortar nas categorias de desejo.` });
+                out.push({ icone: 'fa-triangle-exclamation', titulo: 'Falta para a meta de economia', texto: `Na média atual sobram ${moeda(h.saldoMensal)} por mês e a meta é ${moeda(r.metaEconomia)}. Faltam ${moeda(r.metaEconomia - h.saldoMensal)} por mês: o caminho mais fácil é cortar nas categorias de desejo.` });
             }
         }
 
@@ -381,7 +381,7 @@
         const alvo = cats.find((c) => c.grupo === 'desejo') || cats[0];
         if (alvo && alvo.media > 0) {
             const eco = alvo.media * 0.10;
-            out.push({ icone: '✂️', titulo: `Teste cortar 10% em ${alvo.nome}`, texto: `Você gasta em média ${moeda(alvo.media)} por mês aqui. Reduzindo 10%, são ${moeda(eco)} a mais por mês, ou ${moeda(eco * 12)} em um ano.` });
+            out.push({ icone: 'fa-scissors', titulo: `Teste cortar 10% em ${alvo.nome}`, texto: `Você gasta em média ${moeda(alvo.media)} por mês aqui. Reduzindo 10%, são ${moeda(eco)} a mais por mês, ou ${moeda(eco * 12)} em um ano.` });
         }
 
         // regra 50/30/20
@@ -392,10 +392,10 @@
             const pEss = ess / r.receitas;
             const pDes = des / r.receitas;
             const pSobra = r.saldo / r.receitas;
-            if (pEss > 0.5) out.push({ icone: '🏠', titulo: 'Essenciais acima de 50%', texto: `Moradia, mercado, transporte e contas consomem ${pct(pEss)} da renda do mês. A regra 50/30/20 sugere até 50%.` });
-            if (pDes > 0.3) out.push({ icone: '🎮', titulo: 'Desejos acima de 30%', texto: `Lazer, compras e extras levaram ${pct(pDes)} da renda. A referência é até 30%.` });
-            if (pSobra >= 0.2) out.push({ icone: '👏', titulo: 'Você está guardando bem', texto: `Sobrou ${pct(pSobra)} da renda do mês, acima dos 20% que a regra 50/30/20 recomenda.` });
-            else out.push({ icone: '🐖', titulo: 'Guarde primeiro', texto: `Sobrou ${pct(Math.max(pSobra, 0))} da renda; a referência é 20%. Separe a poupança assim que o dinheiro entrar, antes de gastar.` });
+            if (pEss > 0.5) out.push({ icone: 'fa-house', titulo: 'Essenciais acima de 50%', texto: `Moradia, mercado, transporte e contas consomem ${pct(pEss)} da renda do mês. A regra 50/30/20 sugere até 50%.` });
+            if (pDes > 0.3) out.push({ icone: 'fa-gamepad', titulo: 'Desejos acima de 30%', texto: `Lazer, compras e extras levaram ${pct(pDes)} da renda. A referência é até 30%.` });
+            if (pSobra >= 0.2) out.push({ icone: 'fa-hands-clapping', titulo: 'Você está guardando bem', texto: `Sobrou ${pct(pSobra)} da renda do mês, acima dos 20% que a regra 50/30/20 recomenda.` });
+            else out.push({ icone: 'fa-piggy-bank', titulo: 'Guarde primeiro', texto: `Sobrou ${pct(Math.max(pSobra, 0))} da renda; a referência é 20%. Separe a poupança assim que o dinheiro entrar, antes de gastar.` });
         }
         return out.slice(0, 5);
     }

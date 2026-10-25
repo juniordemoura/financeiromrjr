@@ -7,7 +7,8 @@
     'use strict';
 
     const CFG = window.APP_CONFIG || {};
-    const DEMO = !CFG.SUPABASE_URL || !CFG.SUPABASE_ANON_KEY || String(CFG.SUPABASE_URL).includes('COLE_AQUI');
+    const DEMO = !CFG.SUPABASE_URL || !CFG.SUPABASE_ANON_KEY ||
+        String(CFG.SUPABASE_URL).includes('COLE_AQUI') || String(CFG.SUPABASE_ANON_KEY).includes('COLE_AQUI');
 
     const ZEROS = { orcamento_mensal: 0, contas_fixas: 0, meta_economia: 0 };
     function normalizarConfig(c) {
@@ -230,6 +231,11 @@
             return () => window.removeEventListener('storage', h);
         }
     };
+
+    window.DB = DEMO ? demo : real;
+    window.DB.ZEROS = ZEROS;
+})();
+
 
     window.DB = DEMO ? demo : real;
     window.DB.ZEROS = ZEROS;

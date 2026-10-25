@@ -4,6 +4,7 @@
 
     const { moeda, pct } = Calc;
     const $ = (id) => document.getElementById(id);
+    const ico = (cls) => '<i class="fa-solid ' + cls + '"></i>';
     const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
     // ---------- acesso: só entra quem fez login ----------
@@ -49,9 +50,9 @@
         const antes = nivelAnterior;
         nivelAnterior = { chave, nivel: r.nivel };
         if (!antes || antes.chave !== chave || antes.nivel === r.nivel) return;
-        if (r.nivel === 'vermelho') aviso('🔴 Atenção: você entrou no vermelho!', 'vermelho', 9000);
-        else if (r.nivel === 'bom') aviso('🟢 Você voltou ao trilho: está dentro do planejado.', 'bom');
-        else if (r.nivel === 'otimo') aviso('🏆 Ótimo! Você está abaixo do ritmo planejado.', 'otimo', 8000);
+        if (r.nivel === 'vermelho') aviso('Atenção: você entrou no vermelho!', 'vermelho', 9000);
+        else if (r.nivel === 'bom') aviso('Você voltou ao trilho: está dentro do planejado.', 'bom');
+        else if (r.nivel === 'otimo') aviso('Ótimo! Você está abaixo do ritmo planejado.', 'otimo', 8000);
     }
 
     // ---------- carregar dados ----------
@@ -102,7 +103,7 @@
     function desenharBanner(r) {
         const m = Calc.mensagemStatus(r);
         $('banner').className = 'glass c12 banner ' + r.nivel;
-        $('bSelo').textContent = m.icone;
+        $('bSelo').innerHTML = ico(m.icone);
         $('bTitulo').textContent = m.titulo;
         $('bTexto').textContent = m.texto;
 
@@ -151,15 +152,15 @@
             const seq = Calc.sequencia(ts, cfg, hoje);
             const n = Calc.nivelPorSequencia(seq);
             $('mSeq').textContent = String(seq);
-            $('mNivelIcone').textContent = n.atual.icone;
+            $('mNivelIcone').innerHTML = ico(n.atual.icone);
             $('mNivel').textContent = n.atual.nome;
             $('mNivelBarra').style.width = Math.round(n.pct * 100) + '%';
-            $('mNivelProx').textContent = n.proximo
-                ? 'Faltam ' + n.falta + (n.falta === 1 ? ' dia' : ' dias') + ' para ' + n.proximo.icone + ' ' + n.proximo.nome
+            $('mNivelProx').innerHTML = n.proximo
+                ? 'Faltam ' + n.falta + (n.falta === 1 ? ' dia' : ' dias') + ' para ' + ico(n.proximo.icone) + ' ' + n.proximo.nome
                 : 'Nível máximo! Continue assim.';
         } else {
             $('mSeq').textContent = '—';
-            $('mNivelIcone').textContent = '📅';
+            $('mNivelIcone').innerHTML = ico('fa-calendar');
             $('mNivel').textContent = 'Mês ' + (r.passado ? 'passado' : 'futuro');
             $('mNivelBarra').style.width = '0%';
             $('mNivelProx').textContent = 'A sequência diária vale para o mês atual.';
@@ -289,7 +290,7 @@
         }
         $('prevResumo').innerHTML = topo;
         $('listaDicas').innerHTML = dicas
-            .map((d) => '<li><span class="d-ico">' + d.icone + '</span><div><strong>' + esc(d.titulo) + '</strong><p>' + esc(d.texto) + '</p></div></li>')
+            .map((d) => '<li><span class="d-ico">' + ico(d.icone) + '</span><div><strong>' + esc(d.titulo) + '</strong><p>' + esc(d.texto) + '</p></div></li>')
             .join('');
     }
 
@@ -309,7 +310,7 @@
             const dd = String(t.data).slice(8, 10) + '/' + String(t.data).slice(5, 7);
             return '<div class="item">' +
                 '<span class="dt">' + dd + '</span>' +
-                '<span class="ico">' + Calc.iconeCategoria(t.categoria) + '</span>' +
+                '<span class="ico">' + ico(Calc.iconeCategoria(t.categoria)) + '</span>' +
                 '<div class="txt"><strong>' + esc(t.descricao) + '</strong><small>' + esc(t.categoria) + (t.fixo ? ' · conta fixa' : '') + '</small></div>' +
                 '<span class="val ' + classe + '">' + sinal + ' ' + moeda(t.valor) + '</span>' +
                 '<button type="button" class="apagar" data-id="' + esc(t.id) + '" aria-label="Apagar lançamento"><i class="fa-solid fa-trash"></i></button>' +
@@ -371,7 +372,7 @@
     function preencherCategorias() {
         const gasto = tipoAtual() === 'gasto';
         const lista = gasto ? Calc.CATEGORIAS_GASTO.map((c) => c.nome) : Calc.CATEGORIAS_RECEITA;
-        $('fCat').innerHTML = lista.map((n) => '<option value="' + esc(n) + '">' + Calc.iconeCategoria(n) + ' ' + esc(n) + '</option>').join('');
+        $('fCat').innerHTML = lista.map((n) => '<option value="' + esc(n) + '">' + esc(n) + '</option>').join('');
         $('fixoWrap').hidden = !gasto;
         if (!gasto) $('fFixo').checked = false;
     }

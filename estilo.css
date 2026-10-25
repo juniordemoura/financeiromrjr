@@ -1,0 +1,189 @@
+/* =====================================================================
+   estilo.css — base visual (vidro sobre madeira) + tela de login
+   ===================================================================== */
+:root {
+    --vidro: rgba(255, 255, 255, 0.08);
+    --vidro-borda: rgba(255, 255, 255, 0.3);
+    --sombra: 0px 20px 60px rgba(0, 0, 0, 0.416);
+    --vermelho: #ff6b6b;
+    --bom: #5fd68a;
+    --otimo: #ffd24d;
+    --neutro: #cfd8e3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #3b2f2a url(imagem/fundo-madeira.jpg) center / cover fixed;
+    min-height: 100vh;
+    color: white;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.login-card {
+    padding: 14px;
+    width: 300px;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 22px;
+    box-shadow: 0px 20px 60px rgba(0, 0, 0, 0.416);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-card h2 {
+    margin: 10px 0 4px;
+}
+
+.sub {
+    text-align: center;
+    margin: 0 0 6px;
+    font-size: 13px;
+    color: #ddd;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 12px;
+    border-radius: 6px;
+    margin: 20px;
+}
+
+.icon {
+    margin-right: 10px;
+}
+
+.input-box input {
+    flex: 1;
+    min-width: 0;
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.input-box input::placeholder {
+    color: white;
+    opacity: 0.75;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20px 15px;
+    font-size: 12px;
+}
+
+.options .link {
+    margin: 0;
+}
+
+.link {
+    color: #ddd;
+    text-decoration: none;
+    margin: 14px;
+}
+
+.link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.link-p {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #ddd;
+}
+
+.bnt {
+    width: 100%;
+    padding: 10px;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+}
+
+.bnt:hover {
+    background: #f1ece6;
+}
+
+.bnt:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.login-card form .bnt {
+    width: calc(100% - 0px);
+}
+
+.msg {
+    min-height: 18px;
+    margin: 0 20px 12px;
+    font-size: 12.5px;
+    text-align: center;
+}
+
+.msg.erro {
+    color: var(--vermelho);
+}
+
+.msg.ok {
+    color: var(--bom);
+}
+
+.aviso {
+    margin: 10px 8px 0;
+    padding: 8px 10px;
+    font-size: 12px;
+    line-height: 1.4;
+    border-radius: 10px;
+    background: rgba(255, 210, 77, 0.14);
+    border: 1px solid rgba(255, 210, 77, 0.45);
+    color: #ffe9a6;
+}
+
+.link-voltar {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .input-box input {
+        font-size: 16px; /* evita o zoom automático do iOS ao focar */
+    }
+}
+
+[hidden] {
+    display: none !important;
+}

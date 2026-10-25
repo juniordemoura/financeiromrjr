@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login · Meu Controle Financeiro</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css" integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <div class="container">
+
+        <div class="login-card">
+            <h2 id="titulo">Login</h2>
+            <p class="sub">Meu Controle Financeiro</p>
+
+            <p id="avisoDemo" class="aviso" hidden>
+                <strong>Modo demonstração.</strong> O Supabase ainda não está configurado (veja <code>config.js</code>).
+                Entre com qualquer e-mail e uma senha de 4+ caracteres; os dados ficam só neste navegador.
+            </p>
+
+            <p id="msg" class="msg" role="alert"></p>
+
+            <!-- Entrar -->
+            <form id="formLogin">
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-user"></i></span>
+                    <input type="email" id="email" placeholder="E-mail" autocomplete="username" required>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" id="senha" placeholder="Senha" autocomplete="current-password" required>
+                </div>
+
+                <div class="options">
+                    <label>
+                        <input type="checkbox" id="lembrar" checked> Lembrar-me
+                    </label>
+                    <a href="#" class="link" id="irEsqueci">Esqueceu a senha?</a>
+                </div>
+
+                <button class="bnt" id="btnEntrar" type="submit">Entrar</button>
+
+                <p class="link-p">Acesso privado</p>
+            </form>
+
+            <!-- Esqueci a senha -->
+            <form id="formEsqueci" hidden>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                    <input type="email" id="emailRec" placeholder="Seu e-mail" autocomplete="username" required>
+                </div>
+                <button class="bnt" id="btnEsqueci" type="submit">Enviar link</button>
+                <a href="#" class="link link-voltar" id="voltar1">Voltar ao login</a>
+            </form>
+
+            <!-- Nova senha (após clicar no link do e-mail) -->
+            <form id="formNova" hidden>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" id="novaSenha" placeholder="Nova senha (8+ caracteres)" autocomplete="new-password" minlength="8" required>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" id="novaSenha2" placeholder="Repita a nova senha" autocomplete="new-password" minlength="8" required>
+                </div>
+                <button class="bnt" id="btnNova" type="submit">Salvar senha</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="calc.js"></script>
+    <script src="db.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>

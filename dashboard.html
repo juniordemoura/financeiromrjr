@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2a1f1a">
+    <title>Meu Controle Financeiro</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css" integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body class="dash">
+
+    <header class="topo glass">
+        <div class="marca"><i class="fa-solid fa-wallet"></i> <span>Meu Controle</span></div>
+
+        <div class="mes-nav">
+            <button type="button" id="mesAnt" class="btn-ico" aria-label="Mês anterior"><i class="fa-solid fa-chevron-left"></i></button>
+            <strong id="mesLabel">—</strong>
+            <button type="button" id="mesProx" class="btn-ico" aria-label="Próximo mês"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+        <div class="topo-dir">
+            <span id="vivo" class="vivo off">● conectando…</span>
+            <span id="usuario" class="usuario"></span>
+            <button type="button" id="sair" class="btn-ico" aria-label="Sair" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+    </header>
+
+    <p id="avisoDemo" class="faixa-demo" hidden>
+        <i class="fa-solid fa-flask"></i> Modo demonstração: dados fictícios salvos só neste navegador. Preencha o <code>config.js</code> para usar o Supabase.
+    </p>
+
+    <main class="grade">
+
+        <!-- Status do mês -->
+        <section id="banner" class="glass c12 banner neutro">
+            <div class="selo" id="bSelo">🧭</div>
+            <div class="banner-corpo">
+                <h2 id="bTitulo">Carregando…</h2>
+                <p id="bTexto"></p>
+                <div class="barra" aria-hidden="true"><i id="bBarra"></i><span id="bMarca" class="marca-ritmo" title="Onde você deveria estar hoje"></span></div>
+                <div class="legenda-barra">
+                    <span id="bVar"></span>
+                    <span id="bFixo"></span>
+                    <span id="bDia"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Números do mês -->
+        <section class="c12 resumo">
+            <article class="glass mini">
+                <span class="rot"><i class="fa-solid fa-arrow-trend-up"></i> Receitas</span>
+                <strong id="vReceitas" class="verde">R$ 0,00</strong>
+            </article>
+            <article class="glass mini">
+                <span class="rot"><i class="fa-solid fa-arrow-trend-down"></i> Gastos</span>
+                <strong id="vGastos" class="coral">R$ 0,00</strong>
+            </article>
+            <article class="glass mini">
+                <span class="rot"><i class="fa-solid fa-scale-balanced"></i> Saldo do mês</span>
+                <strong id="vSaldo">R$ 0,00</strong>
+            </article>
+            <article class="glass mini">
+                <span class="rot"><i class="fa-solid fa-calendar-day"></i> <span id="rDiaRot">Pode gastar hoje</span></span>
+                <strong id="vDia">R$ 0,00</strong>
+                <small id="sDia"></small>
+            </article>
+        </section>
+
+        <!-- Lançar -->
+        <section class="glass c5 lancar">
+            <h3><i class="fa-solid fa-circle-plus"></i> Novo lançamento</h3>
+            <form id="formLancar" autocomplete="off">
+                <div class="seg" role="radiogroup" aria-label="Tipo">
+                    <label><input type="radio" name="tipo" value="gasto" checked><span>Gasto</span></label>
+                    <label><input type="radio" name="tipo" value="receita"><span>Receita</span></label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon">R$</span>
+                    <input type="text" id="fValor" inputmode="decimal" placeholder="Valor (ex.: 25,90)" required>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-pen"></i></span>
+                    <input type="text" id="fDesc" maxlength="120" placeholder="Descrição (opcional)">
+                </div>
+                <div class="linha-2">
+                    <div class="input-box">
+                        <span class="icon"><i class="fa-solid fa-tag"></i></span>
+                        <select id="fCat" aria-label="Categoria"></select>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class="fa-solid fa-calendar"></i></span>
+                        <input type="date" id="fData" aria-label="Data" required>
+                    </div>
+                </div>
+                <label id="fixoWrap" class="check">
+                    <input type="checkbox" id="fFixo"> Conta fixa (aluguel, internet, mensalidade…)
+                </label>
+                <button class="bnt" id="btnLancar" type="submit">Lançar</button>
+            </form>
+        </section>
+
+        <!-- Estímulo -->
+        <section class="glass c7 motivacao">
+            <h3><i class="fa-solid fa-fire"></i> Sequência e metas</h3>
+            <div class="mot-topo">
+                <div class="seq">
+                    <strong id="mSeq">0</strong>
+                    <span>dias seguidos<br>dentro do limite</span>
+                </div>
+                <div class="nivel">
+                    <div class="nivel-nome"><span id="mNivelIcone">🌱</span> <strong id="mNivel">Aprendiz</strong></div>
+                    <div class="barra fina"><i id="mNivelBarra"></i></div>
+                    <small id="mNivelProx"></small>
+                </div>
+            </div>
+            <p id="mFrase" class="frase"></p>
+            <div class="meta">
+                <div class="meta-topo"><span><i class="fa-solid fa-bullseye"></i> Meta de economia</span><strong id="mMetaTxt"></strong></div>
+                <div class="barra fina"><i id="mMetaBarra"></i></div>
+            </div>
+        </section>
+
+        <!-- Gráficos -->
+        <section class="glass c4 graf">
+            <h3><i class="fa-solid fa-chart-pie"></i> Gastos por categoria</h3>
+            <div class="graf-wrap"><canvas id="gCat"></canvas><p class="vazio" id="vCat" hidden>Sem gastos neste mês</p></div>
+        </section>
+        <section class="glass c8 graf">
+            <h3><i class="fa-solid fa-chart-line"></i> Gasto acumulado × ritmo ideal <small>(sem contas fixas)</small></h3>
+            <div class="graf-wrap"><canvas id="gAcum"></canvas></div>
+        </section>
+        <section class="glass c6 graf">
+            <h3><i class="fa-solid fa-chart-column"></i> Gasto de cada dia <small>(vermelho = acima do limite diário)</small></h3>
+            <div class="graf-wrap"><canvas id="gDia"></canvas></div>
+        </section>
+        <section class="glass c6 graf">
+            <h3><i class="fa-solid fa-timeline"></i> Últimos 6 meses e previsão <small>(* previsão pela média)</small></h3>
+            <div class="graf-wrap"><canvas id="gHist"></canvas></div>
+        </section>
+
+        <!-- Próximos meses -->
+        <section class="glass c6 proximos">
+            <h3><i class="fa-solid fa-lightbulb"></i> Próximos meses</h3>
+            <div id="prevResumo"></div>
+            <ul id="listaDicas" class="dicas"></ul>
+        </section>
+
+        <!-- Lançamentos do mês -->
+        <section class="glass c6 lista-sec">
+            <h3><i class="fa-solid fa-list"></i> Lançamentos do mês</h3>
+            <div id="lista" class="lista"></div>
+        </section>
+
+        <!-- Planejamento -->
+        <section id="plano" class="glass c12 plano">
+            <h3><i class="fa-solid fa-sliders"></i> Meu planejamento</h3>
+            <p class="ajuda">Esses três números alimentam os alertas e as previsões. Vale para todos os meses; você pode ajustar quando quiser.</p>
+            <form id="formPlano" class="form-plano" autocomplete="off">
+                <label>Orçamento do mês <small>(o máximo que posso gastar)</small>
+                    <div class="input-box"><span class="icon">R$</span><input type="text" id="pOrc" inputmode="decimal" placeholder="Ex.: 2200"></div>
+                </label>
+                <label>Contas fixas previstas <small>(aluguel, internet, mensalidade…)</small>
+                    <div class="input-box"><span class="icon">R$</span><input type="text" id="pFixas" inputmode="decimal" placeholder="Ex.: 1000"></div>
+                </label>
+                <label>Meta de economia por mês
+                    <div class="input-box"><span class="icon">R$</span><input type="text" id="pMeta" inputmode="decimal" placeholder="Ex.: 400"></div>
+                </label>
+                <button class="bnt" id="btnPlano" type="submit">Salvar planejamento</button>
+            </form>
+        </section>
+
+    </main>
+
+    <div id="toasts" aria-live="polite"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="config.js"></script>
+    <script src="calc.js"></script>
+    <script src="db.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

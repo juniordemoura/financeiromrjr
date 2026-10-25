@@ -1,16 +1,16 @@
-/* config.js — dados públicos do seu projeto Supabase.
+/* config.js — dados públicos do seu projeto Supabase (financeiro-mrjr).
  *
- * Onde achar: Supabase → Project Settings → API
- *   - Project URL
- *   - chave pública (anon / publishable)  ← essa pode ficar no site.
+ * Falta só colar a chave pública abaixo.
+ * Onde achar: Supabase → botão Connect (ou Project Settings → API Keys)
+ *   → chave "anon" ou "publishable" (começa com eyJ... ou sb_publishable_...).
  *
- * NUNCA coloque aqui a chave "service_role" (secreta).
+ * NUNCA coloque aqui a chave "service_role" ou "secret".
  * A segurança vem das regras RLS do schema.sql: sem login, ninguém lê nada.
  *
- * Enquanto os valores abaixo não forem trocados, o site roda em MODO
- * DEMONSTRAÇÃO (dados fictícios guardados só no seu navegador).
+ * Enquanto a chave não for colada, o site roda em MODO DEMONSTRAÇÃO
+ * (dados fictícios guardados só no seu navegador).
  */
 window.APP_CONFIG = {
-    SUPABASE_URL: 'COLE_AQUI_A_URL_DO_PROJETO',
-    SUPABASE_ANON_KEY: 'COLE_AQUI_A_CHAVE_PUBLICA'
+    SUPABASE_URL: 'https://maskriypyvjultyfrfwv.supabase.co',
+    SUPABASE_ANON_KEY: 'sb_publishable_Mdo8CGpZ33UfzajG-xmw9w_YvxB3Ell'
 };

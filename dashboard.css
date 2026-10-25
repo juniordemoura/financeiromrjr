@@ -3,15 +3,17 @@
    ===================================================================== */
 body.dash {
     padding: 0 0 max(40px, env(safe-area-inset-bottom));
+    /* fundo só do painel (o login continua com a madeira do estilo.css) */
+    background: #0c0a09 url(imagem/fundo-dashboard.jpg) center / cover fixed;
 }
 
-/* escurece um pouco a madeira para os gráficos ficarem legíveis */
+/* escurece um pouco o fundo para os gráficos ficarem legíveis */
 body.dash::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(180deg, rgba(14, 9, 6, 0.5), rgba(14, 9, 6, 0.72));
+    background: linear-gradient(180deg, rgba(8, 8, 12, 0.45), rgba(8, 8, 12, 0.75));
 }
 
 .glass {

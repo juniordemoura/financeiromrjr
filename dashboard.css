@@ -682,3 +682,52 @@ body.dash::before {
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
 }
+
+/* ---------- ícones (substituem os emojis) ---------- */
+.banner .selo {
+    width: 64px;
+    height: 64px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 26px;
+    color: var(--cor);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--cor);
+}
+
+.dicas .d-ico {
+    width: 34px;
+    height: 34px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 14px;
+    color: var(--otimo);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.item .ico {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #f1ece6;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nivel-nome i,
+.nivel small i {
+    color: var(--otimo);
+}
+
+@media (max-width: 600px) {
+    .banner .selo { width: 52px; height: 52px; font-size: 22px; }
+}
